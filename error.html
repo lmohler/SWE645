@@ -1,0 +1,101 @@
+<!--
+  error.html
+  Author: Lucas Mohler
+  Purpose: Error/fallback page for GMU SWE 645 Module 1 assignment. Displayed
+           when the main homepage is unavailable or a page cannot be found.
+-->
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>Page Unavailable | Lucas Mohler</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+		<style>
+			:root {
+				--primary: #0a6fc2;
+				--accent: #2196f3;
+				--bg: #f8fafc;
+			}
+
+			body {
+				font-family: "Varela Round", sans-serif;
+				background: var(--bg);
+				margin: 0;
+				min-height: 100vh;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				text-align: center;
+				padding: 2rem;
+				box-sizing: border-box;
+			}
+
+			.error-icon {
+				font-size: 5rem;
+				color: var(--accent);
+				margin-bottom: 1.5rem;
+			}
+
+			h1 {
+				color: var(--primary);
+				font-size: 2rem;
+				margin: 0 0 0.75rem;
+			}
+
+			p {
+				color: #4b5563;
+				font-size: 1.05rem;
+				max-width: 480px;
+				margin: 0 0 2rem;
+				line-height: 1.75;
+			}
+
+			.btn-home {
+				background: var(--accent);
+				color: white;
+				padding: 0.65rem 2rem;
+				border-radius: 9999px;
+				text-decoration: none;
+				font-size: 0.95rem;
+				font-weight: 600;
+				transition: opacity 0.2s;
+			}
+
+			.btn-home:hover,
+			.btn-home:focus {
+				opacity: 0.85;
+			}
+
+			footer {
+				position: fixed;
+				bottom: 0;
+				width: 100%;
+				background: var(--primary);
+				color: white;
+				padding: 1rem;
+				text-align: center;
+				font-size: 0.82rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="error-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+		<h1>Page Unavailable</h1>
+		<p>
+			We're sorry &mdash; the page you're looking for is temporarily unavailable
+			or could not be found. Please try again in a moment.
+		</p>
+		<a href="index.html" class="btn-home"><i class="fa-solid fa-house w3-margin-right"></i>Return to Homepage</a>
+
+		<footer>&copy; 2026 Lucas Mohler</footer>
+	</body>
+</html>

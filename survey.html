@@ -1,0 +1,746 @@
+<!--
+  survey.html
+  Author: Lucas Mohler
+  Purpose: Student survey form for GMU SWE 645 Module 1 assignment. Collects
+           contact info, campus impressions, referral source, recommendation
+           likelihood, raffle entry, and open comments.
+-->
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>Student Survey | Lucas Mohler</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+		<style>
+			:root {
+				--primary: #0a6fc2;
+				--accent: #2196f3;
+				--text: #1f2937;
+				--text-light: #4b5563;
+				--bg: #f8fafc;
+				--card: #ffffff;
+				--border: #e2e8f0;
+				--error: #dc2626;
+			}
+
+			body {
+				font-family: "Varela Round", sans-serif;
+				background: var(--bg);
+				color: var(--text);
+				line-height: 1.75;
+				margin: 0;
+			}
+
+			h1, h2, h3 {
+				color: var(--primary);
+			}
+
+			.w3-content {
+				max-width: 860px;
+				margin: auto;
+				padding: 0 16px;
+			}
+
+			.nav-back-btn {
+				background: var(--accent);
+				color: white;
+				padding: 0.45rem 1.2rem;
+				border-radius: 9999px;
+				text-decoration: none;
+				font-size: 0.9rem;
+				font-weight: 600;
+				transition: opacity 0.2s;
+			}
+
+			.nav-back-btn:hover,
+			.nav-back-btn:focus {
+				opacity: 0.85;
+			}
+
+			.form-card {
+				background: var(--card);
+				border-radius: 12px;
+				box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+				padding: 2rem 2.5rem;
+				margin-bottom: 2rem;
+			}
+
+			.section-title {
+				font-size: 1.2rem;
+				margin: 0 0 1rem;
+				padding-bottom: 0.5rem;
+				border-bottom: 3px solid var(--accent);
+				color: var(--primary);
+			}
+
+			.form-grid {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 1rem 1.5rem;
+			}
+
+			.form-grid .full-width {
+				grid-column: 1 / -1;
+			}
+
+			@media (max-width: 600px) {
+				.form-grid {
+					grid-template-columns: 1fr;
+				}
+				.form-card {
+					padding: 1.5rem 1.25rem;
+				}
+			}
+
+			label {
+				display: block;
+				font-size: 0.88rem;
+				font-weight: 600;
+				color: var(--text-light);
+				margin-bottom: 0.3rem;
+			}
+
+			label .req {
+				color: var(--error);
+				margin-left: 2px;
+			}
+
+			input[type="text"],
+			input[type="email"],
+			input[type="tel"],
+			input[type="date"],
+			select,
+			textarea {
+				width: 100%;
+				padding: 0.55rem 0.8rem;
+				border: 1.5px solid var(--border);
+				border-radius: 8px;
+				font-family: inherit;
+				font-size: 0.95rem;
+				color: var(--text);
+				background: var(--bg);
+				box-sizing: border-box;
+				transition: border-color 0.2s;
+			}
+
+			input:focus,
+			select:focus,
+			textarea:focus {
+				outline: none;
+				border-color: var(--accent);
+				box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.15);
+			}
+
+			input.invalid,
+			select.invalid,
+			textarea.invalid {
+				border-color: var(--error);
+				box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+			}
+
+			input.valid,
+			select.valid,
+			textarea.valid {
+				border-color: #16a34a;
+				box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+			}
+
+			.error-msg {
+				color: var(--error);
+				font-size: 0.8rem;
+				margin-top: 0.25rem;
+				display: none;
+			}
+
+			/* Modals */
+			dialog {
+				border: none;
+				border-radius: 14px;
+				box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
+				max-width: 580px;
+				width: calc(100% - 2rem);
+				max-height: 88vh;
+				padding: 0;
+				overflow: hidden;
+			}
+
+			dialog[open] {
+				display: flex;
+				flex-direction: column;
+				animation: modalIn 0.2s ease;
+			}
+
+			dialog::backdrop {
+				background: rgba(15, 23, 42, 0.55);
+			}
+
+			@keyframes modalIn {
+				from { opacity: 0; transform: translateY(-18px) scale(0.97); }
+				to   { opacity: 1; transform: translateY(0)     scale(1);    }
+			}
+
+			.modal-header {
+				padding: 1.4rem 1.8rem 1rem;
+				border-bottom: 1.5px solid var(--border);
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				flex-shrink: 0;
+			}
+
+			.modal-header h3 {
+				margin: 0;
+				font-size: 1.15rem;
+			}
+
+			.modal-close {
+				background: none;
+				border: none;
+				font-size: 1.3rem;
+				cursor: pointer;
+				color: var(--text-light);
+				line-height: 1;
+				padding: 0.2rem 0.4rem;
+				border-radius: 6px;
+				transition: background 0.15s;
+			}
+
+			.modal-close:hover {
+				background: #f1f5f9;
+			}
+
+			.modal-body {
+				padding: 1.2rem 1.8rem;
+				overflow-y: auto;
+				flex: 1;
+			}
+
+			.modal-footer {
+				padding: 1rem 1.8rem 1.4rem;
+				border-top: 1.5px solid var(--border);
+				display: flex;
+				justify-content: flex-end;
+				gap: 0.75rem;
+				flex-shrink: 0;
+			}
+
+			/* Error modal list */
+			.error-list {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+
+			.error-list li {
+				display: flex;
+				align-items: center;
+				gap: 0.6rem;
+				padding: 0.55rem 0.75rem;
+				border-radius: 8px;
+				font-size: 0.93rem;
+				margin-bottom: 0.4rem;
+				background: #fef2f2;
+				color: #991b1b;
+			}
+
+			.error-list li i {
+				color: var(--error);
+				flex-shrink: 0;
+			}
+
+			/* Results modal table */
+			.results-section {
+				margin-bottom: 1.4rem;
+			}
+
+			.results-section h4 {
+				font-size: 0.88rem;
+				text-transform: uppercase;
+				letter-spacing: 0.06em;
+				color: var(--text-light);
+				margin: 0 0 0.6rem;
+				padding-bottom: 0.35rem;
+				border-bottom: 1.5px solid var(--border);
+			}
+
+			.results-table {
+				width: 100%;
+				border-collapse: collapse;
+				font-size: 0.92rem;
+			}
+
+			.results-table td {
+				padding: 0.4rem 0.5rem;
+				vertical-align: top;
+			}
+
+			.results-table td:first-child {
+				font-weight: 600;
+				color: var(--text-light);
+				width: 42%;
+				white-space: nowrap;
+			}
+
+			.results-table tr:nth-child(even) td {
+				background: #f8fafc;
+			}
+
+			.tag-list {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.35rem;
+			}
+
+			.tag {
+				font-size: 0.8rem;
+				padding: 0.2rem 0.65rem;
+				background: #eff6ff;
+				color: #1d4ed8;
+				border-radius: 9999px;
+				border: 1px solid #bfdbfe;
+			}
+
+			.checkbox-group,
+			.radio-group {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.6rem 1.5rem;
+				margin-top: 0.5rem;
+			}
+
+			.checkbox-group label,
+			.radio-group label {
+				display: flex;
+				align-items: center;
+				gap: 0.45rem;
+				font-weight: 400;
+				color: var(--text);
+				cursor: pointer;
+				font-size: 0.95rem;
+			}
+
+			input[type="checkbox"],
+			input[type="radio"] {
+				width: 1.1rem;
+				height: 1.1rem;
+				accent-color: var(--accent);
+				cursor: pointer;
+			}
+
+			textarea {
+				resize: vertical;
+				min-height: 100px;
+			}
+
+			.btn-row {
+				display: flex;
+				gap: 1rem;
+				margin-top: 1.5rem;
+			}
+
+			.btn {
+				padding: 0.65rem 2rem;
+				border: none;
+				border-radius: 9999px;
+				font-family: inherit;
+				font-size: 0.95rem;
+				font-weight: 600;
+				cursor: pointer;
+				transition: opacity 0.2s, transform 0.15s;
+			}
+
+			.btn:hover,
+			.btn:focus {
+				opacity: 0.88;
+				transform: translateY(-1px);
+			}
+
+			.btn-primary {
+				background: var(--accent);
+				color: white;
+			}
+
+			.btn-secondary {
+				background: #e2e8f0;
+				color: var(--text);
+			}
+
+			.success-banner {
+				display: none;
+				background: #d1fae5;
+				border: 1.5px solid #34d399;
+				border-radius: 10px;
+				padding: 1.2rem 1.5rem;
+				margin-bottom: 1.5rem;
+				color: #065f46;
+				font-weight: 600;
+			}
+
+			footer {
+				background: var(--primary);
+				color: white;
+				padding: 1.5rem 1rem;
+				text-align: center;
+				font-size: 0.85rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- Navigation -->
+		<div style="background: var(--primary); padding: 0.75rem 1rem;">
+			<div class="w3-content" style="display:flex; align-items:center; justify-content:space-between;">
+				<span style="color:white; font-weight:600; font-size:1.05rem;"><i class="fa-solid fa-clipboard-list w3-margin-right"></i>Student Survey</span>
+				<a href="index.html" class="nav-back-btn"><i class="fa-solid fa-arrow-left w3-margin-right"></i>Back to Home</a>
+			</div>
+		</div>
+
+		<div class="w3-content" style="margin-top:2rem; margin-bottom:2rem;">
+
+			<div id="successBanner" class="success-banner">
+				<i class="fa-solid fa-circle-check w3-margin-right"></i>
+				Thank you! Your survey has been submitted successfully.
+			</div>
+
+			<form id="surveyForm" novalidate>
+
+				<!-- Personal Information -->
+				<div class="form-card">
+					<h2 class="section-title"><i class="fa-solid fa-user w3-margin-right"></i>Personal Information</h2>
+
+					<div class="form-grid">
+						<div>
+							<label for="firstName">First Name <span class="req">*</span></label>
+							<input type="text" id="firstName" name="firstName" required autocomplete="given-name" />
+							<div class="error-msg" id="firstNameErr">First name is required.</div>
+						</div>
+
+						<div>
+							<label for="lastName">Last Name <span class="req">*</span></label>
+							<input type="text" id="lastName" name="lastName" required autocomplete="family-name" />
+							<div class="error-msg" id="lastNameErr">Last name is required.</div>
+						</div>
+
+						<div class="full-width">
+							<label for="address">Street Address <span class="req">*</span></label>
+							<input type="text" id="address" name="address" required autocomplete="address-line1" />
+							<div class="error-msg" id="addressErr">Street address is required.</div>
+						</div>
+
+						<div>
+							<label for="city">City <span class="req">*</span></label>
+							<input type="text" id="city" name="city" required autocomplete="address-level2" />
+							<div class="error-msg" id="cityErr">City is required.</div>
+						</div>
+
+						<div>
+							<label for="state">State <span class="req">*</span></label>
+							<input type="text" id="state" name="state" required autocomplete="address-level1" maxlength="2" placeholder="e.g. VA" />
+							<div class="error-msg" id="stateErr">State is required.</div>
+						</div>
+
+						<div>
+							<label for="zip">ZIP Code <span class="req">*</span></label>
+							<input type="text" id="zip" name="zip" required autocomplete="postal-code" maxlength="10" placeholder="e.g. 22030" />
+							<div class="error-msg" id="zipErr">ZIP code is required.</div>
+						</div>
+
+						<div>
+							<label for="phone">Telephone Number <span class="req">*</span></label>
+							<input type="tel" id="phone" name="phone" required autocomplete="tel" placeholder="e.g. 703-555-0100" />
+							<div class="error-msg" id="phoneErr">Telephone number is required.</div>
+						</div>
+
+						<div>
+							<label for="email">Email Address <span class="req">*</span></label>
+							<input type="email" id="email" name="email" required autocomplete="email" placeholder="e.g. name@example.com" />
+							<div class="error-msg" id="emailErr">A valid email address is required.</div>
+						</div>
+
+						<div>
+							<label for="surveyDate">Date of Survey <span class="req">*</span></label>
+							<input type="date" id="surveyDate" name="surveyDate" required />
+							<div class="error-msg" id="surveyDateErr">Date of survey is required.</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Campus Impressions -->
+				<div class="form-card">
+					<h2 class="section-title"><i class="fa-solid fa-building-columns w3-margin-right"></i>Campus Impressions</h2>
+					<p style="margin-top:0; color:var(--text-light);">What did you like most about the campus? (Select all that apply)</p>
+
+					<div class="checkbox-group">
+						<label><input type="checkbox" name="liked" value="students" /> Students</label>
+						<label><input type="checkbox" name="liked" value="location" /> Location</label>
+						<label><input type="checkbox" name="liked" value="campus" /> Campus</label>
+						<label><input type="checkbox" name="liked" value="atmosphere" /> Atmosphere</label>
+						<label><input type="checkbox" name="liked" value="dormRooms" /> Dorm Rooms</label>
+						<label><input type="checkbox" name="liked" value="sports" /> Sports</label>
+					</div>
+				</div>
+
+				<!-- How Did You Hear About Us -->
+				<div class="form-card">
+					<h2 class="section-title"><i class="fa-solid fa-bullhorn w3-margin-right"></i>How Did You Hear About Us?</h2>
+					<p style="margin-top:0; color:var(--text-light);">How did you become interested in the university?</p>
+
+					<div class="radio-group">
+						<label><input type="radio" name="referral" value="friends" /> Friends</label>
+						<label><input type="radio" name="referral" value="television" /> Television</label>
+						<label><input type="radio" name="referral" value="internet" /> Internet</label>
+						<label><input type="radio" name="referral" value="other" /> Other</label>
+					</div>
+				</div>
+
+				<!-- Recommendation Likelihood -->
+				<div class="form-card">
+					<h2 class="section-title"><i class="fa-solid fa-thumbs-up w3-margin-right"></i>Recommendation</h2>
+					<label for="likelihood" style="color:var(--text-light); font-weight:400;">How likely are you to recommend this school to other prospective students?</label>
+					<select id="likelihood" name="likelihood" style="margin-top:0.5rem; max-width:320px;">
+						<option value="">-- Select an option --</option>
+						<option value="veryLikely">Very Likely</option>
+						<option value="likely">Likely</option>
+						<option value="unlikely">Unlikely</option>
+					</select>
+				</div>
+
+				<!-- Raffle Entry -->
+				<div class="form-card">
+					<h2 class="section-title"><i class="fa-solid fa-ticket w3-margin-right"></i>Raffle — Win a Free Movie Ticket!</h2>
+					<label for="raffle">
+						Enter at least 10 comma-separated numbers, each between 1 and 100 <span class="req">*</span>
+					</label>
+					<input type="text" id="raffle" name="raffle" required placeholder="e.g. 7, 23, 45, 12, 88, 3, 67, 91, 55, 30" />
+					<div class="error-msg" id="raffleErr">Please enter at least 10 comma-separated numbers, each between 1 and 100.</div>
+				</div>
+
+				<!-- Additional Comments -->
+				<div class="form-card">
+					<h2 class="section-title"><i class="fa-solid fa-comment w3-margin-right"></i>Additional Comments</h2>
+					<label for="comments" style="color:var(--text-light); font-weight:400;">Please share any additional thoughts or feedback:</label>
+					<textarea id="comments" name="comments" placeholder="Your comments here..."></textarea>
+				</div>
+
+				<!-- Buttons -->
+				<div class="btn-row">
+					<button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane w3-margin-right"></i>Submit</button>
+					<button type="button" class="btn btn-secondary" onclick="cancelForm()"><i class="fa-solid fa-xmark w3-margin-right"></i>Cancel</button>
+				</div>
+
+			</form>
+		</div>
+
+		<!-- Error Modal -->
+		<dialog id="errorModal" aria-labelledby="errorModalTitle">
+			<div class="modal-header">
+				<h3 id="errorModalTitle" style="color:var(--error);"><i class="fa-solid fa-circle-exclamation w3-margin-right"></i>Please fix the following</h3>
+				<button class="modal-close" onclick="closeModal('errorModal')" aria-label="Close">&times;</button>
+			</div>
+			<div class="modal-body">
+				<p style="margin:0 0 1rem; color:var(--text-light); font-size:0.92rem;">The fields below are required or contain invalid input. Please correct them and resubmit.</p>
+				<ul class="error-list" id="errorList"></ul>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" onclick="closeModal('errorModal')">Go Back &amp; Fix</button>
+			</div>
+		</dialog>
+
+		<!-- Results Modal -->
+		<dialog id="resultsModal" aria-labelledby="resultsModalTitle">
+			<div class="modal-header">
+				<h3 id="resultsModalTitle" style="color:#16a34a;"><i class="fa-solid fa-circle-check w3-margin-right"></i>Survey Submitted!</h3>
+				<button class="modal-close" onclick="closeModal('resultsModal')" aria-label="Close">&times;</button>
+			</div>
+			<div class="modal-body" id="resultsBody"></div>
+			<div class="modal-footer">
+				<a href="index.html" class="btn btn-secondary">Return Home</a>
+				<button class="btn btn-primary" onclick="closeModal('resultsModal')">Close</button>
+			</div>
+		</dialog>
+
+		<footer>
+			<p style="margin:0; opacity:0.85;">Built with <a href="https://www.w3schools.com/w3css/" target="_blank" style="color:#90caf9;">w3.css</a> &bull; &copy; 2026 Lucas Mohler</p>
+		</footer>
+
+		<script>
+			// Pre-fill today's date
+			document.getElementById("surveyDate").value = new Date().toISOString().split("T")[0];
+
+			let submitAttempted = false;
+
+			const VALIDATORS = {
+				firstName:  { errId: "firstNameErr",  label: "First Name",       check: v => !!v.trim() },
+				lastName:   { errId: "lastNameErr",   label: "Last Name",        check: v => !!v.trim() },
+				address:    { errId: "addressErr",    label: "Street Address",   check: v => !!v.trim() },
+				city:       { errId: "cityErr",       label: "City",             check: v => !!v.trim() },
+				state:      { errId: "stateErr",      label: "State",            check: v => !!v.trim() },
+				zip:        { errId: "zipErr",        label: "ZIP Code",         check: v => !!v.trim() },
+				phone:      { errId: "phoneErr",      label: "Telephone Number", check: v => !!v.trim() },
+				email:      { errId: "emailErr",      label: "Email Address",    check: v => !!v.trim() && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) },
+				surveyDate: { errId: "surveyDateErr", label: "Date of Survey",   check: v => !!v },
+				raffle:     { errId: "raffleErr",     label: "Raffle Numbers",   check: v => validateRaffle(v.trim()) },
+			};
+
+			function validateRaffle(value) {
+				const parts = value.split(",").map(s => s.trim()).filter(s => s !== "");
+				if (parts.length < 10) return false;
+				return parts.every(p => {
+					const n = Number(p);
+					return Number.isInteger(n) && n >= 1 && n <= 100;
+				});
+			}
+
+			function applyFieldState(id, errId, isValid) {
+				const el = document.getElementById(id);
+				const msg = document.getElementById(errId);
+				if (isValid) {
+					el.classList.add("valid");
+					el.classList.remove("invalid");
+					msg.style.display = "none";
+				} else {
+					el.classList.add("invalid");
+					el.classList.remove("valid");
+					msg.style.display = "block";
+				}
+			}
+
+			// Live validation: show green immediately when valid, show red only after a submit has been attempted.
+			Object.entries(VALIDATORS).forEach(([id, { errId, check }]) => {
+				const el = document.getElementById(id);
+				if (!el) return;
+				const evt = (el.type === "date" || el.tagName === "SELECT") ? "change" : "input";
+				el.addEventListener(evt, () => {
+					const isValid = check(el.value);
+					if (isValid) {
+						applyFieldState(id, errId, true);
+					} else if (submitAttempted) {
+						applyFieldState(id, errId, false);
+					} else {
+						el.classList.remove("valid", "invalid");
+						document.getElementById(errId).style.display = "none";
+					}
+				});
+			});
+
+			// Submit handler
+			document.getElementById("surveyForm").addEventListener("submit", function (e) {
+				e.preventDefault();
+				submitAttempted = true;
+
+				const errorLabels = [];
+				Object.entries(VALIDATORS).forEach(([id, { errId, label, check }]) => {
+					const isValid = check(document.getElementById(id).value);
+					applyFieldState(id, errId, isValid);
+					if (!isValid) errorLabels.push(label);
+				});
+
+				if (errorLabels.length > 0) {
+					showErrorModal(errorLabels);
+					return;
+				}
+
+				showResultsModal();
+			});
+
+			// Error modal
+			function showErrorModal(labels) {
+				document.getElementById("errorList").innerHTML = labels
+					.map(l => `<li><i class="fa-solid fa-circle-exclamation"></i>${l}</li>`)
+					.join("");
+				document.getElementById("errorModal").showModal();
+			}
+
+			// Results modal
+			function showResultsModal() {
+				document.getElementById("resultsBody").innerHTML = buildResultsHTML();
+				document.getElementById("resultsModal").showModal();
+			}
+
+			function buildResultsHTML() {
+				const get = id => document.getElementById(id).value.trim();
+
+				const liked = [...document.querySelectorAll('input[name="liked"]:checked')]
+					.map(cb => cb.parentElement.textContent.trim());
+
+				const referralEl = document.querySelector('input[name="referral"]:checked');
+				const referral = referralEl ? referralEl.parentElement.textContent.trim() : "Not selected";
+
+				const likelihoodEl = document.getElementById("likelihood");
+				const likelihood = likelihoodEl.value
+					? likelihoodEl.options[likelihoodEl.selectedIndex].text
+					: "Not selected";
+
+				const comments = document.getElementById("comments").value.trim();
+
+				const personalRows = [
+					["First Name",      get("firstName")],
+					["Last Name",       get("lastName")],
+					["Street Address",  get("address")],
+					["City",            get("city")],
+					["State",           get("state")],
+					["ZIP Code",        get("zip")],
+					["Telephone",       get("phone")],
+					["Email",           get("email")],
+					["Survey Date",     get("surveyDate")],
+				];
+
+				const raffleNumbers = get("raffle").split(",")
+					.map(n => `<span class="tag">${n.trim()}</span>`)
+					.join("");
+
+				const likedTags = liked.map(t => `<span class="tag">${t}</span>`).join("");
+				const likedHTML = liked.length
+					? `<div class="tag-list">${likedTags}</div>`
+					: `<p style="margin:0;color:var(--text-light);font-size:0.92rem;">None selected</p>`;
+
+				return `
+					<div class="results-section">
+						<h4>Personal Information</h4>
+						<table class="results-table">
+							${personalRows.map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join("")}
+						</table>
+					</div>
+					<div class="results-section">
+						<h4>Campus Impressions</h4>
+						${likedHTML}
+					</div>
+					<div class="results-section">
+						<h4>How They Heard About Us</h4>
+						<p style="margin:0;font-size:0.92rem;">${referral}</p>
+					</div>
+					<div class="results-section">
+						<h4>Likelihood to Recommend</h4>
+						<p style="margin:0;font-size:0.92rem;">${likelihood}</p>
+					</div>
+					<div class="results-section">
+						<h4>Raffle Numbers</h4>
+						<div class="tag-list">${raffleNumbers}</div>
+					</div>
+					${comments ? `
+					<div class="results-section">
+						<h4>Additional Comments</h4>
+						<p style="margin:0;font-size:0.92rem;white-space:pre-wrap;">${comments}</p>
+					</div>` : ""}
+				`;
+			}
+
+			function closeModal(id) {
+				document.getElementById(id).close();
+			}
+
+			function cancelForm() {
+				if (confirm("Are you sure you want to cancel? All entered data will be lost.")) {
+					globalThis.location.href = "index.html";
+				}
+			}
+		</script>
+	</body>
+</html>

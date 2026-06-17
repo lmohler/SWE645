@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>Lucas Mohler | Senior Applications Engineer</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+		<style>
+			:root {
+				--primary: #0a6fc2; 
+				--accent: #2196f3; 
+				--text: #1f2937;
+				--text-light: #4b5563;
+				--bg: #f8fafc;
+				--card: #ffffff;
+				--border: #e2e8f0;
+			}
+
+			body {
+				font-family: "Varela Round", sans-serif;
+				font-weight: 400;
+				font-style: normal;
+				background: var(--bg);
+				color: var(--text);
+				line-height: 1.75;
+				margin: 0;
+			}
+
+			h1,
+			h2,
+			h3,
+			h4,
+			h5 {
+				color: var(--primary);
+			}
+
+			.w3-content {
+				max-width: 1450px;
+				margin: auto;
+				padding: 0 16px;
+			}
+
+			.equal-height-row {
+				display: flex;
+				flex-wrap: wrap;
+				margin: 0 -8px; 
+				align-items: stretch; 
+				gap: 16px;
+			}
+
+			.equal-height-row > div {
+				flex: 1 1 0;
+				min-width: 0;
+				display: flex; 
+				flex-direction: column;
+			}
+
+			.equal-height-row > div > * {
+				flex: 1;
+			}
+
+			@media (max-width: 992px) {
+				.equal-height-row {
+					flex-direction: column;
+				}
+				.equal-height-row > div {
+					min-height: auto !important;
+				}
+			}
+
+			.sidebar {
+				background: white;
+				border-radius: 12px;
+				overflow: hidden;
+				box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+			}
+
+			.profile-header {
+				background: linear-gradient(135deg, var(--primary) 0%, #2a4fa8 100%);
+				color: white;
+				padding: 3.5rem 1.5rem 2.5rem;
+				text-align: center;
+			}
+
+			.profile-pic {
+				width: 145px;
+				height: 145px;
+				object-fit: cover;
+				border: 5px solid rgba(255, 255, 255, 0.25);
+				border-radius: 50%;
+				margin-bottom: 1.2rem;
+				box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+			}
+
+			.tagline {
+				font-size: 1.1rem;
+				opacity: 0.9;
+				margin: 0.6rem 0 0;
+			}
+
+			.section-title {
+				font-size: 1.35rem;
+				margin: 1.8rem 0 1rem;
+				padding-bottom: 0.6rem;
+				border-bottom: 3px solid var(--accent);
+			}
+
+			.skills-container {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.25rem;
+				margin: 1rem 0;
+			}
+
+			.skill-tag {
+				font-size: 0.82rem;
+				padding: 0.38rem 0.9rem;
+				background: #f1f5f9;
+				color: #334155;
+				border-radius: 9999px;
+				border: 1px solid #cbd5e1;
+				transition: all 0.18s ease;
+			}
+
+			.skill-tag:hover {
+				background: var(--accent);
+				color: white;
+				border-color: var(--accent);
+				transform: translateY(-1px);
+			}
+
+			.exp-card {
+				border-left: 4px solid var(--accent);
+				padding-left: 1.4rem;
+				margin-bottom: 2rem;
+				position: relative;
+			}
+
+			.exp-card::before {
+				content: "";
+				position: absolute;
+				left: -10px;
+				top: 0.6rem;
+				width: 16px;
+				height: 16px;
+				background: var(--accent);
+				border-radius: 50%;
+				border: 3px solid white;
+				box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+			}
+
+			.date {
+				font-weight: 600;
+				color: var(--accent);
+				font-size: 0.95rem;
+				margin-bottom: 0.4rem;
+			}
+
+			.job-title {
+				font-size: 1.15rem;
+				margin: 0.1rem 0 0.35rem;
+				color: var(--primary);
+			}
+
+			.company,
+			.degree {
+				color: var(--text-light);
+				font-weight: 500;
+			}
+
+			footer {
+				background: var(--primary);
+				color: white;
+				padding: 3rem 1rem;
+				text-align: center;
+			}
+
+			.social-icons i {
+				font-size: 1.8rem;
+				margin: 0 1rem;
+				transition: 0.2s;
+			}
+
+			.social-icons i:hover {
+				color: var(--accent);
+				transform: translateY(-3px);
+			}
+
+			.nav-survey-btn {
+				background: var(--accent);
+				color: white;
+				padding: 0.45rem 1.2rem;
+				border-radius: 9999px;
+				text-decoration: none;
+				font-size: 0.9rem;
+				font-weight: 600;
+				transition: opacity 0.2s;
+			}
+
+			.nav-survey-btn:hover,
+			.nav-survey-btn:focus {
+				opacity: 0.85;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- Site-wide navigation -->
+		<div style="background: var(--primary); padding: 0.75rem 1rem;">
+			<div class="w3-content" style="display:flex; align-items:center; justify-content:space-between;">
+				<span style="color:white; font-weight:600; font-size:1.05rem;"><i class="fa-solid fa-user w3-margin-right"></i>Lucas Mohler</span>
+				<a href="survey.html" class="nav-survey-btn">
+					<i class="fa-solid fa-clipboard-list w3-margin-right"></i>Student Survey
+				</a>
+			</div>
+		</div>
+
+		<div class="w3-content w3-margin-top w3-margin-bottom">
+			<div class="equal-height-row">
+				<!-- LEFT COLUMN / SIDEBAR -->
+				<div class="w3-card w3-third" style="border-radius: 12px">
+					<div class="sidebar">
+						<div class="profile-header">
+							<img src="images/me.jpg" alt="Lucas Mohler" class="profile-pic w3-image" />
+							<h2 style="color: white; margin-bottom: 0.3rem">Lucas Mohler</h2>
+							<p class="tagline">Senior Applications Engineer</p>
+						</div>
+
+						<div class="w3-container w3-padding-large">
+							<hr class="w3-opacity" />
+
+							<h3 class="section-title"><i class="fa-solid fa-gears w3-margin-right"></i>Technical Skills</h3>
+
+							<div class="skills-group">
+								<p class="w3-small w3-text-grey w3-margin-top"><strong>Frontend</strong></p>
+								<div class="skills-container">
+									<span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span><span class="skill-tag">JavaScript</span> <span class="skill-tag">TypeScript</span><span class="skill-tag">Angular (v4+)</span><span class="skill-tag">jQuery</span>
+								</div>
+
+								<p class="w3-small w3-text-grey w3-margin-top"><strong>Backend</strong></p>
+								<div class="skills-container">
+									<span class="skill-tag">C#</span><span class="skill-tag">.NET Core</span><span class="skill-tag">VB.NET</span> <span class="skill-tag">Node.js</span><span class="skill-tag">REST & SOAP</span><span class="skill-tag">Entity Framework</span>
+								</div>
+
+								<p class="w3-small w3-text-grey w3-margin-top"><strong>Databases</strong></p>
+								<div class="skills-container">
+									<span class="skill-tag">SQL Server</span><span class="skill-tag">Oracle</span><span class="skill-tag">MySQL</span>
+									<span class="skill-tag">MS Access</span>
+								</div>
+
+								<p class="w3-small w3-text-grey w3-margin-top"><strong>Tools & Scripting</strong></p>
+								<div class="skills-container"><span class="skill-tag">PowerShell</span><span class="skill-tag">T-SQL</span><span class="skill-tag">Visual Studio</span> <span class="skill-tag">VS Code</span><span class="skill-tag">Telerik Suite</span></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- RIGHT COLUMN / MAIN CONTENT -->
+				<div class="w3-twothird">
+					<div class="w3-white w3-card w3-padding-large w3-margin-bottom" style="border-radius: 12px">
+						<h2><i class="fa-solid fa-briefcase w3-margin-right" style="color: var(--accent)"></i>Experience</h2>
+
+						<div class="exp-card">
+							<div class="date">May 2012 - Present</div>
+							<h3 class="job-title">Senior Applications Engineer</h3>
+							<p class="company">Full-Stack Development • Mission-Critical Systems</p>
+							<p>Architecting and maintaining high-availability enterprise applications. Leading full-stack development using Angular, .NET Core, SQL Server and modern DevOps practices.</p>
+						</div>
+
+						<div class="exp-card">
+							<div class="date">March 2001 - May 2012</div>
+							<h3 class="job-title">United States Navy</h3>
+							<p class="company">11 years of honorable service • Technical & Leadership roles</p>
+							<p>Developed discipline, teamwork, and problem-solving under pressure in mission-critical environments.</p>
+						</div>
+					</div>
+
+					<div class="w3-white w3-card w3-padding-large" style="border-radius: 12px">
+						<h2><i class="fa-solid fa-graduation-cap w3-margin-right" style="color: var(--accent)"></i>Education</h2>
+
+						<div class="exp-card">
+							<div class="date">2008 - 2011</div>
+							<h3 class="job-title">Bachelor of Science in Computer Science</h3>
+							<p class="company">Hawaii Pacific University</p>
+							<p>Focused on software engineering, data structures, algorithms, and object-oriented design principles.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<footer class="w3-center">
+			<p class="w3-small w3-padding-16" style="opacity: 0.8; margin: 1.5rem 0 0">Built with <a href="https://www.w3schools.com/w3css/" target="_blank" style="color: var(--accent)">w3.css</a> • © 2026 Lucas Mohler</p>
+		</footer>
+	</body>
+</html>
