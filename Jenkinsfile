@@ -1,3 +1,11 @@
+/*
+ * Jenkinsfile
+ * Author: Lucas Mohler
+ * Purpose: Defines the CI/CD pipeline for SWE 645 Assignment 2. Automatically builds
+ *          a Docker image, pushes it to Docker Hub, and deploys it to Kubernetes
+ *          whenever changes are pushed to the GitHub repository.
+ */
+
 pipeline {
     agent any
 

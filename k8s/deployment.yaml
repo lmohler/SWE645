@@ -1,3 +1,9 @@
+# deployment.yaml
+# Author: Lucas Mohler
+# Purpose: Kubernetes Deployment manifest for the SWE 645 web application.
+#          Maintains 3 replicas of the nginx container for high availability and
+#          automatically replaces any pods that fail or are deleted.
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:

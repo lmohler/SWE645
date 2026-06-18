@@ -1,3 +1,8 @@
+# service.yaml
+# Author: Lucas Mohler
+# Purpose: Kubernetes Service manifest that exposes the SWE 645 web application
+#          externally via NodePort 30007, routing traffic to the nginx pods on port 80.
+
 apiVersion: v1
 kind: Service
 metadata:
