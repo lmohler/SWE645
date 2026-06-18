@@ -11,14 +11,6 @@ pipeline {
 
     stages {
 
-
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/lmohler/SWE645.git'
-            }
-        }
-
-
         stage('Build Docker Image') {
             steps {
                 script {
