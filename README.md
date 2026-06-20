@@ -112,7 +112,7 @@ The Jenkinsfile defines three stages:
 
 ## Setup and Installation
 
-See the full step-by-step setup guide: **SWE645 Complete Setup Guide.html**
+See the full step-by-step setup guide: **SWE645 Complete Setup Guide.pdf**
 
 Quick summary:
 
